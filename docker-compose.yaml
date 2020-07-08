@@ -1,0 +1,37 @@
+version: '3'
+services:
+  db:
+    container_name: dbhost
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306:3306"
+    
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYROOT
+    volumes:
+    - /opt/serotonin/mysql:/var/lib/mysql
+
+  calm:
+    container_name: sera
+    build: ./
+    depends_on:
+      - db
+    ports:
+      - "9001:9001"
+    restart: always
+    volumes:
+    - /opt/serotonin/d:/app
+  web:
+    container_name: nginx
+    image: nginx:latest
+    restart: always
+    depends_on:
+    - calm
+
+    ports:
+      - "0.0.0.0:80:80/tcp"
+    volumes:
+    - /opt/serotonin/conf.d:/etc/nginx/conf.d
+    - /opt/serotonin:/files
