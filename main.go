@@ -135,12 +135,12 @@ func main() {
 	//	mux.HandleFunc("/secret", secret)
 	//	mux.HandleFunc("/logout", logout)
 	//	r.HandleFunc("/enter", enterHandler)
-	l, err := net.Listen("tcp", ":9001")
+//	l, err := net.Listen("tcp", ":9001")
 	if err != nil{
 		return
 	}
-	fcgi.Serve(l, nil)
+//	fcgi.Serve(l, nil)
 //	db.Close()
 
-//	http.ListenAndServe(":8000", r)
+//	http.ListenAndServe(":8080", nil)
 }
